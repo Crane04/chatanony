@@ -52,15 +52,20 @@ INSTALLED_APPS = [
 
 ASGI_APPLICATION = "core.asgi.application"
 
+# CHANNEL_LAYERS = {
+#     "default": {
+#         "BACKEND": "channels_redis.core.RedisChannelLayer",
+#         "CONFIG": {
+#             "hosts": [('.vercel.com', 6380)],  # Redis server configuration
+#         },
+#     },
+# }
+
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [('.vercel.com', 6380)],  # Redis server configuration
-        },
-    },
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
 }
-
 
 MIDDLEWARE = [
     # cors
