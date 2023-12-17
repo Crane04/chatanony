@@ -1,0 +1,11 @@
+POST http://127.0.0.1:8000/api/create-group
+Content-Type: application/json
+
+{"name": "physicsp", "created_at": "yesterdat"}
+
+
+###
+POST  http://127.0.0.1:8000/api/messages/first86306b
+Content-Type: application/json
+
+{"message": "ello", "time": "2pm"}

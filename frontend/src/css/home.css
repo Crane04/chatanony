@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+*{
+    font-family: "Montserrat",  'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;;
+}
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #fdfdfd;
+}
+.container{
+    display: flex;
+}
+.inner{
+
+    margin-left: 120px;
+    margin-right: 120px;
+    height: 100vh;
+}
+.home{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100vw;
+}
+img{
+    width: 300px;
+}
+p{
+    font-size: small;
+}
+
+h1 span{
+    display: block;
+    font-size: 70px;
+    line-height: 80px;
+}
+.btns span{
+    width: 150px;
+    height: 35px;
+    padding: 4px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: inherit;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.btns a{
+    display: inline-block;
+}
+.btns span#start{
+    background-color: #5BC6FB;
+    color: #fdfdfd;
+    border: none;
+}
+.btns span#learn{
+    color: #fdfdfd;
+    border: none;
+}
+
+#learn-more{
+    display: block;
+}
+#learn-more h1{
+    text-align: center;
+    width: 100%;
+    
+}
+#learn-more h1 span{
+    line-height: normal;
+    margin-bottom: 22px;
+}
+#learn-more p{
+    font-weight:normal ;
+    font-size: 20px
+}
+ul{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    list-style: none;
+}
+ul li{
+    width: 300px;
+    margin: 10px;
+}
+@media(max-width: 1085px){
+.inner{
+    margin-left: 80px;
+    margin-right: 80px;
+}
+img{
+    width: 250px;
+    height: auto;
+}
+h1 span{
+    display: block;
+    font-size: 50px;
+    line-height: 70px;
+}
+}
+@media(max-width: 800px){
+.inner{
+    margin-left: 60px;
+    margin-right: 60px;
+}
+}
+@media(max-width: 768px){
+img{
+    display: none;
+}
+ .inner{
+    margin-left: 90px;
+    margin-right: 90px;
+}
+}
+@media(max-width: 500px){
+ .inner{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+h1 span{
+    font-size: 45px;
+}
+}
+

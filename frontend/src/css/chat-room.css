@@ -1,0 +1,132 @@
+.body{
+    background: url("../assets/Android hd wallpapers.jpeg");
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+}
+
+.chat-container{
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    margin-bottom: 40px;
+    width: 100%;
+    height: 100vh;
+    z-index: -1000;
+}
+.inner-chat{
+    width: 500px;
+    margin-top: 30px;
+    z-index: 1000;
+    height: 80%;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ;
+    overflow-y: auto;
+    padding-right: 40px;
+    padding-left: 40px;
+}
+#send-message-form{
+    display: flex;
+    align-items: flex-end;
+    position: absolute;
+    bottom: 0;
+    width: 500px;
+    margin-bottom: 35px;
+}
+#msg-input{
+    margin-top: 20px;
+    color: #000;
+    background: rgba(237, 234, 234, 0.9);
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    height: 30px;
+    padding: 7px;
+}
+#send-message-form button{
+    height: 45px;
+    padding: 10px;
+    background-color: #1c1c1c;
+    color: #dfdfdf;
+    border: none;
+    width: 90px;
+    cursor: pointer;
+}
+.inner-chat .unit-message{
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+}
+.emoji{
+    margin-right: 20px;
+    margin-top: -1px;
+    background-color: #fff;
+    padding: 2px;
+    border-radius: 50px;
+    height: 25px;
+    width: 25px;
+}
+.msg{
+    background-color: #fff;
+    max-width: 100%;
+    padding: 4px;
+    border-radius: 7px;
+}
+.new-chat-link{
+    position: absolute;
+    right: 0;
+    background-color: #c4b;
+    margin: 12px;
+    padding: 4px;
+    top: 0;
+}
+.new-chat-link a{
+    color: #fff;
+    text-transform: uppercase;
+    text-decoration: none;
+
+}
+.no-message{
+    margin-top: 150px;
+}
+.no-message h1, .no-message h3{
+    font-family: cursive;
+    text-align: center;
+}
+.no-message h3 a {
+    z-index: 1000;
+}
+.inner-chat .older-messages{
+    display: flex;
+    justify-content: center;
+    z-index: 1000000000000;
+}
+@media(max-width:900px){
+    #send-message-form{
+        display: flex;
+        align-items: flex-end;
+        position: absolute;
+        bottom: 0;
+        width: 90vw;
+        margin-bottom: 35px;
+        margin-bottom: 120px;
+    }
+    .inner-chat{
+        width: 100%;
+        margin-top: 0px;
+        z-index: 1000;
+        height: 65vh;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ;
+        overflow-y: auto;
+        padding-right: 0px;
+        padding-left: 0px;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    #msg-input{
+
+        border-radius: 5px;
+        /* width: 50%; */
+        height: 30px;
+        padding: 7px;
+    }
+}
