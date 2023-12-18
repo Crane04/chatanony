@@ -5,3 +5,4 @@ daphne
 channels
 psycopg2_binary
 dj-database-url
+django-environ
