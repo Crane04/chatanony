@@ -3,3 +3,5 @@ djangorestframework
 django-cors-headers
 daphne
 channels
+psycopg2_binary
+dj-database-url
