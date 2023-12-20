@@ -1,10 +1,11 @@
-const PostMessage = (e,  socket, formRef, chat_name, setPage) => {
+const PostMessage = (e,  socket, formRef, chat_name, setPage, replyingTo, setReplyingTo) => {
   e.preventDefault()
   let message = e.target.message.value
   if (!message) return;
 
   socket.send(JSON.stringify({
-      "message": message
+      "message": message,
+      "replied": replyingTo
   }))
   
   formRef.current.reset();
@@ -22,11 +23,14 @@ const PostMessage = (e,  socket, formRef, chat_name, setPage) => {
             body: JSON.stringify(
                 {
                     "message": message, 
-                    "time": now.toString()
+                    "time": now.toString(),
+                    "replied": replyingTo
                 }
                 )
+
         }
     )
+    setReplyingTo("")
   }
   SendMsg()
   

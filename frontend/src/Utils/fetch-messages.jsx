@@ -1,6 +1,6 @@
 
 
-const FetchMessagesFunc = (chat_name, setGrpExists, setMessages, setGroupDetails) => {
+const FetchMessagesFunc = (chat_name, setGrpExists, messages, setMessages, setGroupDetails) => {
 
         const FetchMessages = async() => {
           const response = await fetch ("http://127.0.0.1:8000/api/messages/" + chat_name)
@@ -10,10 +10,12 @@ const FetchMessagesFunc = (chat_name, setGrpExists, setMessages, setGroupDetails
             setGrpExists(false)
             return
           }
+
           setGrpExists(true)
           setGroupDetails(result?.group_data)
           
           setMessages(result?.data)
+
           
         }
     

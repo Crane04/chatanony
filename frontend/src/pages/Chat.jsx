@@ -16,6 +16,20 @@ const Chat = () => {
   const [grp_exists, setGrpExists ] = useState(false)
   const [group_details, setGroupDetails] = useState("")
   const [page, setPage] = useState(1)
+  const [replyingTo, setReplyingTo] = useState("")
+
+  const Reply = (value) => {
+    let value_reply = value.slice(0, 50)
+    if(value_reply.length < value.length) {
+      setReplyingTo(value_reply + "...")
+      return
+    }
+    setReplyingTo(value_reply)
+  }
+  const RemoveReply = () => {
+    setReplyingTo("")
+  }
+
 
   const faceEmojis = [
     '😀', '😃', '😄', '😁', '😆', '😅', '😂', '🤣', '😊', '😇', '🙂', '🙃', '😉', '😌',
@@ -36,15 +50,15 @@ const Chat = () => {
 
 useEffect(() => {
 
-  FetchMessagesFunc(chat_name, setGrpExists, setMessages, setGroupDetails, setPage, page)
+  FetchMessagesFunc(chat_name, setGrpExists, messages, setMessages, setGroupDetails, setPage, page)
 }, [])
+
 
   // Socket
   
   const socket = new WebSocket('ws://127.0.0.1:8000/chat/' + chat_name + "/");
   
   useEffect(() => {
-    
     socket.onopen = () => {
       
     };
@@ -56,12 +70,11 @@ useEffect(() => {
     if (bottomRef.current) {
       bottomRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  
     return () => {
       socket.close();
     };
     
-  }, [socket]); // Empty dependency array ensures this effect runs once
+  }, [messages]); // Empty dependency array ensures this effect runs once
 
 
 
@@ -109,11 +122,21 @@ useEffect(() => {
 
             {
               messages.length > 0 ?
-              messages.slice(-15 * page).map((message, index)=> {
+               messages.slice(-15 * page).map((message, index)=> {
                 const randomFaceEmoji = faceEmojis[Math.floor(Math.random() * faceEmojis.length)];
+                
               return <div className="unit-message" key={index}>
                   <div className="emoji">{randomFaceEmoji}</div>
-                  <div className="msg">{message.message}</div>
+
+                  <div className="msg">
+                  {
+                    message.replied ?
+                    <div className="msg-reply">{message.replied}</div> :
+                    ""
+                  }
+                    {message.message}
+                    </div> 
+                    <button onClick={() => {Reply(message.message)}}>0</button>
                 </div>
                 
                 
@@ -125,10 +148,22 @@ useEffect(() => {
               
             }
             <form id="send-message-form" ref={formRef} onSubmit={(e) => {
-             e.preventDefault(); PostMessage(e,  socket, formRef, chat_name, setPage)
+             e.preventDefault(); PostMessage(e,  socket, formRef, chat_name, setPage, replyingTo, setReplyingTo, setReplyingTo)
             }}>
+              {
+                replyingTo ? 
+                <div id="reply-msg">
+                  <p>{replyingTo}</p>
+                  <button onClick={RemoveReply} type="button">x</button>
+                </div>
+                :
+                ""
+              }
+            <div className="send-message">
               <input type="text" id="msg-input"placeholder="Type a message..;" name="message"/>
               <button>Send</button>
+            </div>
+
             </form>
       <div ref={bottomRef} />
           </div>

@@ -1,9 +1,11 @@
 import Header from "../components/header"
 import "../css/home.css"
 import img_snip from "../assets/chat_interface_-_3.png"
+import learnMore from "../Utils/learn-more"
 
 
 const Home = () => {
+
   return (
     <>
     <div className="container">
@@ -36,27 +38,15 @@ const Home = () => {
         </h1>
 
         <ul>
-            <li>
-                <h3>No User Accounts</h3>
-                <p>We don't require you to sign up with Facebook, Twitter or an email Address</p>
-            </li>
-            <li>
-                <h3>No Tracking</h3>
-                <p>We don't use cookies or other scripts that track and identify users, so you stay private</p>
-            </li>
-            <li>
-                <h3>Open Sourced</h3>
-                <p>We've open sourced our code to the world. Mo tricks or backdoors up our sleeves.</p>
-            </li>
-            
-            <li>
-                <h3>Emojis</h3>
-                <p>To keep messages anonymous, each one is assigned a random emoji</p>
-            </li>
-            <li>
-                <h3>Delighful Surprises</h3>
-                <p>Find secret conversations, plan a surprise party</p>
-            </li>
+            {
+                learnMore.map((learn, index) => {
+                    const {title, exp} = learn
+                return  <li key={index}>
+                                <h3>{title}</h3>
+                                <p>{exp}</p>
+                            </li>
+                })
+            }
         </ul>
     </div>
 

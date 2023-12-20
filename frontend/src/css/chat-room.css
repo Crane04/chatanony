@@ -16,7 +16,7 @@
 }
 .inner-chat{
     width: 500px;
-    margin-top: 30px;
+    margin-top: 20px;
     z-index: 1000;
     height: 80%;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ;
@@ -24,13 +24,17 @@
     padding-right: 40px;
     padding-left: 40px;
 }
-#send-message-form{
-    display: flex;
-    align-items: flex-end;
+#send-message-form {
+
     position: absolute;
     bottom: 0;
     width: 500px;
     margin-bottom: 35px;
+}
+.send-message{
+    display: flex;
+    align-items: flex-end;
+    margin-top: -20px;
 }
 #msg-input{
     margin-top: 20px;
@@ -64,12 +68,38 @@
     border-radius: 50px;
     height: 25px;
     width: 25px;
+    box-shadow: 1px 1px 1px 1px rgba(237, 234, 234, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .msg{
     background-color: #fff;
-    max-width: 100%;
+    max-width: 80%;
     padding: 4px;
     border-radius: 7px;
+    min-width: 5%;
+    height: fit-content;
+}
+.msg-reply{
+    background-color: #666;
+    color: #fff;
+    border-radius:4px;
+    padding:2px
+}
+.unit-message button{
+    height: 20px;
+    width: 20px !important;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: none;
+    margin-top: 1px;
+    margin-left: 2px;
+    cursor: pointer;
 }
 .new-chat-link{
     position: absolute;
@@ -100,16 +130,48 @@
     justify-content: center;
     z-index: 1000000000000;
 }
+#reply-msg{
+    /* width: 500px; */
+    background-color: #333;
+    color: #fff;
+    border-left: 2px solid #000;
+    border-right: 2px solid #000;
+    border-top: 2px solid #000;
+    border-radius: 7px 7px 0px 0px;
+    padding: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+#reply-msg button{
+    width: 4px;
+    height: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    border-radius: 50%;
+}
+#reply-msg p{
+    height: min-content;
+    margin: 0;
+}
 @media(max-width:900px){
     #send-message-form{
-        display: flex;
-        align-items: flex-end;
+
         position: absolute;
         bottom: 0;
         width: 90vw;
         margin-bottom: 35px;
         margin-bottom: 120px;
     }
+    #reply-msg{
+        /* width: 90vw; */
+        height: max-content;
+    }
+ 
     .inner-chat{
         width: 100%;
         margin-top: 0px;
@@ -122,6 +184,7 @@
         margin-left: 20px;
         margin-right: 20px;
     }
+    
     #msg-input{
 
         border-radius: 5px;

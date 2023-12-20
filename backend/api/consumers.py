@@ -13,25 +13,29 @@ class ChatConsumer(WebsocketConsumer):
         self.accept()
 
 
-
     def receive(self, text_data):
         text_data_json = json.loads(text_data)
         message = text_data_json["message"]
+        replied = text_data_json["replied"]
+        
 
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,
             {
                 "type": "chat_message",
-                "message": message
+                "message": message,
+                "replied": replied
             }
         )
 
     def chat_message(self, event):
         message = event["message"]
+        replied = event["replied"]
 
         self.send(
             text_data=json.dumps({
                 "type": "chat",
-                "message": message
+                "message": message,
+                "replied": replied
             })
         )
