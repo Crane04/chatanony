@@ -24,6 +24,7 @@ class Messages(models.Model):
     group = models.ForeignKey(GroupChat, on_delete=models.CASCADE, related_name = "room")
     message = models.CharField(max_length=9999)
     time = models.CharField(max_length=1000)
+    replied = models.CharField(max_length = 1000, blank = True, null = True)
 
     def __str__(self):
         return str(self.group)
