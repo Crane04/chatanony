@@ -165,3 +165,4 @@ CHANNEL_LAYERS = {
         'BACKEND': 'channels.layers.InMemoryChannelLayer',  # Use Redis for production
     },
 }
+DEFAULT_CHARSET = 'utf-8'

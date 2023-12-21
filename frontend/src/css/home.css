@@ -63,6 +63,15 @@ h1 span{
     color: #fdfdfd;
     border: none;
 }
+.links ul{
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+}
+.links ul li{
+    width: fit-content;
+}
 
 #learn-more{
     display: block;
