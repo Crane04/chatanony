@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import dj_database_url
 import environ
+import os
 
 env = environ.Env()
 environ.Env.read_env()
@@ -28,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-*ag_lz!&r)p8g!ixy9)@1i0t-!!x+whud76zk-iupcd#zl1n56"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -106,15 +107,15 @@ WSGI_APPLICATION = "core.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-"""DATABASES = {
+DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
     }
-}"""
-DATABASES =  {
-    "default": dj_database_url.parse(env("DATABASE_URL"))
 }
+# DATABASES =  {
+#     "default": dj_database_url.parse(env("DATABASE_URL"))
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -166,3 +167,7 @@ CHANNEL_LAYERS = {
     },
 }
 DEFAULT_CHARSET = 'utf-8'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+

@@ -7,7 +7,7 @@ import CreateChatForm from "../components/create-chat-form"
 
 const CreateChat = () => {
 
-    const domain = "http://127.0.0.1:8000"
+    const domain = "http://localhost:5173"
 
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(false)

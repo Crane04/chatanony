@@ -5,6 +5,7 @@ from .serializers import *
 from rest_framework.response import Response
 from rest_framework import status
 import uuid, re
+from rest_framework.parsers import MultiPartParser, FormParser
 # Create your views here.
 
 def home(request):
@@ -31,10 +32,11 @@ class SendMessage(ListCreateAPIView):
     lookup_field = "group_id"
     queryset = Messages
     serializer_class = MessagesSerializer
+    parser_classes = [MultiPartParser, FormParser]
 
     def post(self, request,group_id, *args, **kwargs):
-
-        serializer = self.serializer_class(data=request.data)
+        request.data._mutable = True
+        serializer = self.serializer_class(data=request.data) #To avoid This QueryDict instance is immutable error
 
         if GroupChat.objects.filter(group_id = group_id).exists() == False:
             return Response({
