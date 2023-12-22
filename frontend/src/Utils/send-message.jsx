@@ -12,7 +12,7 @@ const PostMessage = async (e, socket, formRef, chat_name, setPage, replyingTo, s
       imgData = await EncodeImage(file);
     }
 
-    console.log(imgData);
+
 
     socket.send(
       JSON.stringify({

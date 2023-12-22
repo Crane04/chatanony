@@ -53,7 +53,7 @@ useEffect(() => {
   
   
   const socket = new WebSocket('wss://chatanony-nm9q.onrender.com/chat/' + chat_name + "/");
-  console.log(messages);
+
   // const socket = new WebSocket('ws://127.0.0.1:8000/chat/' + chat_name + "/");
   useEffect(() => {
     socket.onopen = () => {
