@@ -24,8 +24,7 @@ const CreateChat = () => {
             const formData = new FormData(e.currentTarget)
             const groupname = formData.get("groupname");            
             const now = new Date();
-            const response = await fetch("https://chatanony.pythonanywhere.com/api/create-group",
-            // const response = await fetch("http://127.0.0.1:8000/api/create-group",
+            const response = await fetch("http://127.0.0.1:8000/api/create-group",
                 {
                     method:"POST",
                     headers:{

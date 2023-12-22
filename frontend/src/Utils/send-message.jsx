@@ -34,7 +34,7 @@ const PostMessage = async (e, socket, formRef, chat_name, setPage, replyingTo, s
     formData.append("replied", replyingTo);
 
     const response = await fetch(
-      `https://chatanony.pythonanywhere.com/api/messages/${chat_name}`,
+      `http://127.0.0.1:8000/api/messages/${chat_name}`,
       {
         method: "POST",
         body: formData,
