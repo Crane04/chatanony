@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import FetchMessagesFunc from "../Utils/fetch-messages";
 import PostMessage from "./SendMessage";
 
-
+import handleClick from '../../notification';
 
 const Chat = () => {
   const { chat_name } = useParams()
@@ -161,7 +161,7 @@ useEffect(() => {
               }
             <div className="send-message">
               <input type="text" id="msg-input"placeholder="Type a message..;" name="message"/>
-              <button>Send</button>
+              <button id="sendBtn" onClick={handleClick}>Send</button>
             </div>
 
             </form>
