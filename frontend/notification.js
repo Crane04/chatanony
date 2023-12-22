@@ -1,9 +1,8 @@
-let lastSentMessage = '';
+let lastMessage = '';
 
 function handleClick() {
-  const messageInput = document.getElementById('msg-input');
-  const message = messageInput.value; // Get the message from the input field
-  lastSentMessage = message;
+  const allMsgs = document.querySelectorAll('.msg');
+  lastMessage = allMsgs[allMsgs.length - 1].innerText;
 
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') {
@@ -15,16 +14,18 @@ function handleClick() {
 function showNotification() {
   Notification.requestPermission().then(perm => {
     if (perm === 'granted') {
-      const notification = new Notification("New Message", {
-        body: lastSentMessage,
-        data: { hello: "world" },
-        icon: "",
-        tag: "New message"
-      });
+      if (!document.hasFocus()) {
+        const notification = new Notification("New Message", {
+          body: lastMessage,
+          data: { hello: "world" },
+          icon: "",
+          tag: "New message"
+        });
 
-      notification.addEventListener('error', e => {
-        alert("Error showing notification");
-      });
+        notification.addEventListener('error', e => {
+          alert("Error showing notification");
+        });
+      }
     }
   });
 };
