@@ -37,7 +37,6 @@ class SendMessage(ListCreateAPIView):
     def post(self, request,group_id, *args, **kwargs):
         request.data._mutable = True
         serializer = self.serializer_class(data=request.data) #To avoid This QueryDict instance is immutable error
-
         if GroupChat.objects.filter(group_id = group_id).exists() == False:
             return Response({
                 "details": "group chat not found"
@@ -65,7 +64,7 @@ class SendMessage(ListCreateAPIView):
         group_serializer = GroupChatSerializer(group)
         messages = Messages.objects.filter(group = group.pk)
         
-        serializer = self.serializer_class(messages, many =  True)
+        serializer = self.serializer_class(messages, many =  True,  context={'request': request})
         return Response(
             {"data":serializer.data,
             "group_data": group_serializer.data

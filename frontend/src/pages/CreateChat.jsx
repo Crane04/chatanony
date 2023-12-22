@@ -7,7 +7,7 @@ import CreateChatForm from "../components/create-chat-form"
 
 const CreateChat = () => {
 
-    const domain = "http://localhost:5173"
+    const domain = "https://chatanony.netlify.app"
 
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(false)
@@ -24,7 +24,8 @@ const CreateChat = () => {
             const formData = new FormData(e.currentTarget)
             const groupname = formData.get("groupname");            
             const now = new Date();
-            const response = await fetch("http://127.0.0.1:8000/api/create-group",
+            const response = await fetch("https://chatanony.pythonanywhere.com/api/create-group",
+            // const response = await fetch("http://127.0.0.1:8000/api/create-group",
                 {
                     method:"POST",
                     headers:{

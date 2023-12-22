@@ -121,7 +121,7 @@ h1 span{
 }
 }
 @media(max-width: 768px){
-img{
+.inner.home img{
     display: none;
 }
  .inner{

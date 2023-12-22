@@ -17,6 +17,12 @@ class ChatConsumer(WebsocketConsumer):
         text_data_json = json.loads(text_data)
         message = text_data_json["message"]
         replied = text_data_json["replied"]
+
+        if "image" in text_data_json:
+            image = text_data_json["image"]
+        else:
+            image = None
+
         
 
         async_to_sync(self.channel_layer.group_send)(
@@ -24,18 +30,26 @@ class ChatConsumer(WebsocketConsumer):
             {
                 "type": "chat_message",
                 "message": message,
-                "replied": replied
+                "replied": replied,
+                "image": image
             }
         )
 
     def chat_message(self, event):
         message = event["message"]
         replied = event["replied"]
+        image = event["image"]
+
+        if "image" in event:
+            image = event["image"]
+        else:
+            image = None
 
         self.send(
             text_data=json.dumps({
                 "type": "chat",
                 "message": message,
-                "replied": replied
+                "replied": replied,
+                "image": image
             })
         )

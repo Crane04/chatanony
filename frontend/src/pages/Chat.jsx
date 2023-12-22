@@ -4,7 +4,10 @@ import "../css/chat-room.css"
 import { useState } from "react"
 import { useParams } from 'react-router-dom';
 import FetchMessagesFunc from "../Utils/fetch-messages";
-import PostMessage from "./SendMessage";
+import PostMessage from "../Utils/send-message";
+import handleFileChange, { ClearImage } from "../components/uploaded-image";
+import Messages from "../components/messages";
+import OlderMessagesBtn from "../components/older-messages-btn";
 
 
 
@@ -17,10 +20,8 @@ const Chat = () => {
   const [group_details, setGroupDetails] = useState("")
   const [page, setPage] = useState(1)
   const [replyingTo, setReplyingTo] = useState("")
-
-  // image uploading
-
-
+  const [selectedImage, setSelectedImage] = useState(null); // Image that will be updated is saved here
+  const fileInputRef = useRef(null); // will be used to control the state of our image uploaf
 
 
 
@@ -35,18 +36,6 @@ const Chat = () => {
   const RemoveReply = () => {
     setReplyingTo("")
   }
-
-
-  const faceEmojis = [
-    '😀', '😃', '😄', '😁', '😆', '😅', '😂', '🤣', '😊', '😇', '🙂', '🙃', '😉', '😌',
-    '😍', '🥰', '😘', '😗', '😙', '😚', '😋', '😛', '😝', '😜', '🤪', '🤨', '🧐', '🤓', '😎',
-    '🤩', '🥳', '😏', '😒', '😞', '😔', '😟', '😕', '🙁', '😣', '😖', '😫', '😩', '🥺', '😢',
-    '😭', '😤', '😠', '😡', '🤬', '🤯', '😳', '🥵', '🥶', '😱', '😨', '😰', '😥', '😓', '🤗',
-    '🤔', '🤭', '🤫', '🤥', '😶', '😐', '😑', '😬', '🙄', '😯', '😦', '😧', '😮', '😲', '🥱',
-    '😴', '🤤', '😪', '😵', '🤐', '🥴', '🤢', '🤮', '🤧', '😷', '🤒', '🤕', '🤑', '🤠', '😈',
-    '👿', '👹', '👺', '🤡', '💩', '👻', '💀', '☠️', '👽', '👾', '🤖', '🎃', '😺', '😸', '😹',
-    '😻', '😼', '😽', '🙀', '😿', '😾',
-  ];
   
   
 
@@ -63,9 +52,10 @@ useEffect(() => {
   // Socket
   
   
-  const socket = new WebSocket('ws://127.0.0.1:8000/chat/' + chat_name + "/");
+  const socket = new WebSocket('wss://chatanony-nm9q.onrender.com/chat/' + chat_name + "/");
+  console.log(messages);
+  // const socket = new WebSocket('ws://127.0.0.1:8000/chat/' + chat_name + "/");
   useEffect(() => {
-    console.log(messages);
     socket.onopen = () => {
       console.log("connected");
     };
@@ -88,7 +78,6 @@ useEffect(() => {
   return (
     <div className="body">
 
-    
     {
       grp_exists ?
 
@@ -110,61 +99,28 @@ useEffect(() => {
                 <h3><a href="/new">Create new group</a></h3>
               </div> :
 
-            
-
-
         <div className="chat-container">
 
           <div className="inner-chat">
-            {
-              messages.length <= 15 || 15 * page >= messages.length ?
-              ""
-              :
-              <div className="older-messages">
-              <button onClick={FlipPage}>
-              See Older Messages
-            </button>
-              </div>
-            }
+            <OlderMessagesBtn messages = {messages} FlipPage = {FlipPage} page = {page} />
+            
+            <Messages messages = {messages} page = {page}  Reply = {Reply} />
 
-            {
-              messages.length > 0 ?
-               messages.slice(-15 * page).map((message, index)=> {
-                const randomFaceEmoji = faceEmojis[Math.floor(Math.random() * faceEmojis.length)];
-                
-              return <div className="unit-message" key={index}>
-                  <div className="emoji">{randomFaceEmoji}</div>
-
-                  <div className="msg">
-                  {
-                    message.replied ?
-                    <div className="msg-reply">{message.replied}</div> :
-                    ""
-                  }
-                    {message.message}
-                    </div> 
-                    <button onClick={() => {Reply(message.message)}}>
-                    <svg xmlns="http://www.w3.org/2000/svg" 
-                    height="16" width="16" viewBox="0 0 512 512">
-                      <path d="M205 34.8c11.5 5.1 19 16.6 19 29.2v64H336c97.2 0 176 78.8 176 176c0 
-                      113.3-81.5 163.9-100.2 174.1c-2.5 1.4-5.3 1.9-8.1 1.9c-10.9 0-19.7-8.9-19.7-19.7c0-7.5 
-                      4.3-14.4 9.8-19.5c9.4-8.8 22.2-26.4 22.2-56.7c0-53-43-96-96-96H224v64c0 12.6-7.4 
-                      24.1-19 29.2s-25 3-34.4-5.4l-160-144C3.9 225.7 0 217.1 0 208s3.9-17.7 10.6-23.8l160-144c9.4-8.5 22.9-10.6 34.4-5.4z"/>
-                    </svg>
-                    </button>
-                </div>
-                
-                
-              }) :
-              <div className="no-message">
-                <h1>No messages yet</h1>
-                <h3>send the first message</h3>
-              </div>
-              
-            }
             <form id="send-message-form" ref={formRef} onSubmit={(e) => {
-             e.preventDefault(); PostMessage(e,  socket, formRef, chat_name, setPage, replyingTo, setReplyingTo, setReplyingTo)
+              e.preventDefault(); 
+              PostMessage(e,  socket, formRef, chat_name, setPage, replyingTo, setReplyingTo, setReplyingTo);
+              ClearImage(setSelectedImage, fileInputRef)
+             
             }}>
+              {
+                selectedImage?
+                  <div className="preview-image">
+                  <img src={selectedImage} alt="" />
+                  <button onClick={() => {ClearImage(setSelectedImage, fileInputRef)}}>x</button>
+                </div>
+                :
+                ""
+              }
               {
                 replyingTo ? 
                 <div id="reply-msg">
@@ -185,7 +141,7 @@ useEffect(() => {
                        17.1-4.9 21.2-12.8s3.6-17.4-1.4-24.7l-120-176zM112 192a48 48 0 1 0 0-96 48 48 0 1 0 0 96z"/>
                 </svg>
               </label>
-                <input type="file" accept=".png, .jpg, .jpeg" id="img-upload"name="img"/>
+                <input ref={fileInputRef} type="file" accept=".png, .jpg, .jpeg" id="img-upload"name="img" onChange={(event) => {handleFileChange(event, selectedImage, setSelectedImage)}}/>
 
               <input type="text" id="msg-input"placeholder="Type a message..;" name="message" autoComplete = "off"/>
               <button>Send</button>
