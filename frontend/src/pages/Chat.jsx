@@ -11,6 +11,7 @@ import OlderMessagesBtn from "../components/older-messages-btn";
 
 
 
+
 const Chat = () => {
   const { chat_name } = useParams()
   const formRef = useRef(null);
@@ -50,6 +51,7 @@ useEffect(() => {
 
 
   // Socket
+  
   
 
   const socket = new WebSocket('ws://127.0.0.1:8000/chat/' + chat_name + "/");

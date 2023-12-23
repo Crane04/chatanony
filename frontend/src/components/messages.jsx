@@ -20,9 +20,9 @@ const Messages = ({messages, page,  Reply}) => {
                         ""
                       }
                       
-                    {
+                    {/* {
                       image ? <img src={`${image}`} alt="" /> : ""
-                    }
+                    } */}
                     
                     {
                       message ? <div>{message}</div>: ""

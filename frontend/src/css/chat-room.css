@@ -173,6 +173,7 @@
 }
 #upload-icon{
     cursor: pointer;
+    display: none;
 }
 .preview-image{
     width: fit-content;
