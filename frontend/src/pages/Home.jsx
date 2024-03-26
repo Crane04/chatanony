@@ -2,6 +2,7 @@ import Header from "../components/header"
 import "../css/home.css"
 import img_snip from "../assets/chat_interface_-_3.png"
 import learnMore from "../Utils/learn-more"
+import { Link } from "react-router-dom"
 
 
 const Home = () => {
@@ -19,8 +20,8 @@ const Home = () => {
 
                     </div>
                     <div className="btns">
-                        <span id="start"><a href="/new">Start a chat</a></span>
-                        <span id="learn"><a href="#learn-more">Learn more</a></span>
+                        <span id="start"><Link to="/new">Start a chat</Link></span>
+                        <span  id="learn"><a href="#learn-more">Learn More </a></span>
                     </div>
                     <div className="links">
                         <ul>

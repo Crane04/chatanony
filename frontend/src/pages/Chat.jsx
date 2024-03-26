@@ -8,6 +8,7 @@ import PostMessage from "../Utils/send-message";
 import handleFileChange, { ClearImage } from "../components/uploaded-image";
 import Messages from "../components/messages";
 import OlderMessagesBtn from "../components/older-messages-btn";
+import { Link } from "react-router-dom";
 
 
 
@@ -16,6 +17,7 @@ const Chat = () => {
   const { chat_name } = useParams()
   const formRef = useRef(null);
   const bottomRef = useRef(null); // To scroll the messages to bottom as page loads
+  const inputRef = useRef(null)
   const [messages, setMessages] = useState([])
   const [grp_exists, setGrpExists ] = useState(false)
   const [group_details, setGroupDetails] = useState("")
@@ -33,9 +35,11 @@ const Chat = () => {
       return
     }
     setReplyingTo(value_reply)
+    inputRef.current.focus()
   }
   const RemoveReply = () => {
     setReplyingTo("")
+    inputRef.current.focus()
   }
   
   
@@ -52,12 +56,12 @@ useEffect(() => {
 
   // Socket
   
-  
 
-  const socket = new WebSocket('ws://127.0.0.1:8000/chat/' + chat_name + "/");
+  const socket = new WebSocket('wss://chatanony-wss.onrender.com/chat/'+ chat_name);
   useEffect(() => {
     socket.onopen = () => {
       console.log("connected");
+      
     };
     
     socket.onmessage = (event) => {
@@ -96,7 +100,7 @@ useEffect(() => {
               !grp_exists ?
               <div className="no-message">
                 <h1>This group doesn't exist</h1>
-                <h3><a href="/new">Create new group</a></h3>
+                <h3><Link to="/new">Create new group</Link></h3>
               </div> :
 
         <div className="chat-container">
@@ -143,7 +147,7 @@ useEffect(() => {
               </label>
                 <input ref={fileInputRef} type="file" accept=".png, .jpg, .jpeg" id="img-upload"name="img" onChange={(event) => {handleFileChange(event, selectedImage, setSelectedImage)}}/>
 
-              <input type="text" id="msg-input"placeholder="Type a message..;" name="message" autoComplete = "off"/>
+              <input type="text" id="msg-input"placeholder="Type a message..;" name="message" autoComplete = "off" ref={inputRef}/>
               <button>Send</button>
             </div>
 
