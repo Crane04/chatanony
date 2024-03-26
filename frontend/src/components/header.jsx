@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 import "../css/header.css"
 
 const Header = ({chat_name, id}) => {
@@ -5,7 +7,7 @@ const Header = ({chat_name, id}) => {
     <div className="arc-container" id={id} >
         <div className="arc"></div>
         <div className="brand-name">
-          <a href="/">chatanony</a>
+          <Link to="/">chatanony</Link>
           {
             chat_name ? <p>{chat_name}</p> : ""
           }

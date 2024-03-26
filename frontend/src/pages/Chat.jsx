@@ -93,7 +93,7 @@ useEffect(() => {
       
 
       <div className="new-chat-link">
-        <a href="/new">start a new chat &#x1F642;</a>
+        <Link to="/new">start a new chat &#x1F642;</Link>
       </div>
 
       {
