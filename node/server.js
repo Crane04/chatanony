@@ -2,31 +2,34 @@ const express = require('express');
 const app = express();
 const expressWs = require('express-ws')(app);
 
-const rooms = {};
+// Map to store WebSocket connections for each chat room
+const chatRooms = {};
 
-app.ws('/chat/:id', (ws, req) => {
+// 3. WebSocket Setup
+app.ws('/chat/:id', function(ws, req) {
     const roomId = req.params.id;
-
-    // Join the room
-    if (!rooms[roomId]) {
-        rooms[roomId] = [];
+    
+    // Create a new chat room if it doesn't exist
+    if (!chatRooms[roomId]) {
+        chatRooms[roomId] = [];
     }
-    rooms[roomId].push(ws);
 
-    ws.on('message', (msg) => {
-        // Broadcast message to all clients in the same room
-        rooms[roomId].forEach(client => {
-            if (client !== ws && client.readyState === WebSocket.OPEN) {
+    // Add WebSocket connection to the appropriate chat room
+    chatRooms[roomId].push(ws);
+
+    // Remove closed connections from the chat room
+    ws.on('close', function() {
+        chatRooms[roomId] = chatRooms[roomId].filter(client => client !== ws);
+    });
+
+    ws.on('message', function(msg) {
+        // Broadcast received message to all connected clients in the same chat room
+        chatRooms[roomId].forEach(function(client) {
+            if (client.readyState === 1) {
                 client.send(msg);
             }
         });
     });
-
-    ws.on('close', () => {
-        // Remove client from the room
-        rooms[roomId] = rooms[roomId].filter(client => client !== ws);
-    });
 });
-
 
 app.listen(3000);
