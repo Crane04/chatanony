@@ -8,9 +8,8 @@ import PostMessage from "../Utils/send-message";
 import handleFileChange, { ClearImage } from "../components/uploaded-image";
 import Messages from "../components/messages";
 import OlderMessagesBtn from "../components/older-messages-btn";
-import { Link } from "react-router-dom";
-
-
+import { Link } from "react-router-dom"
+import icons from "../Utils/icons"
 
 
 const Chat = () => {
@@ -24,7 +23,8 @@ const Chat = () => {
   const [page, setPage] = useState(1)
   const [replyingTo, setReplyingTo] = useState("")
   const [selectedImage, setSelectedImage] = useState(null); // Image that will be updated is saved here
-  const fileInputRef = useRef(null); // will be used to control the state of our image uploaf
+  const fileInputRef = useRef(null); // will be used to control the state of our image upload
+  const [LoadingMessages, setLoadingMessages] = useState(true)
 
 
 
@@ -61,11 +61,14 @@ useEffect(() => {
   useEffect(() => {
     socket.onopen = () => {
       console.log("connected");
-      
+      setTimeout(() => {
+        setLoadingMessages(false);
+      }, 400)
     };
     
     socket.onmessage = (event) => {
       setMessages(prevMessages => [...prevMessages, JSON.parse(event.data)]);
+      
     };
 
     if (bottomRef.current) {
@@ -81,8 +84,27 @@ useEffect(() => {
 
   return (
     <div className="body">
+{
+  grp_exists ? (
+    LoadingMessages ? (
+      <div id="spinner">
+        <div className="spin">
+          <div className="spin__">
+            {icons.spinner}
+          </div>
+        </div>
+      </div>
+    ) : (
+      <></>
+    )
+  ) : (
+    <></>
+  )
+}
+
 
     {
+      
       grp_exists ?
 
       // Setting differnt styles for chat room header
@@ -94,6 +116,7 @@ useEffect(() => {
 
       <div className="new-chat-link">
         <Link to="/new">start a new chat &#x1F642;</Link>
+       
       </div>
 
       {

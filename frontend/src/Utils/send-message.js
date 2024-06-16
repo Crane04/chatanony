@@ -1,5 +1,5 @@
 import EncodeImage from "./encode-image";
-
+import BACKEND_BASE_URL from "./constants";
 const PostMessage = async (e, socket, formRef, chat_name, setPage, replyingTo, setReplyingTo) => {
   e.preventDefault();
   let message = e.target.message.value;
@@ -34,7 +34,7 @@ const PostMessage = async (e, socket, formRef, chat_name, setPage, replyingTo, s
     formData.append("replied", replyingTo);
 
     const response = await fetch(
-      `https://chatanony.pythonanywhere.com/api/messages/${chat_name}`,
+      `${BACKEND_BASE_URL}/api/messages/${chat_name}`,
       {
         method: "POST",
         body: formData,

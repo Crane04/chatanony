@@ -245,3 +245,32 @@
         width: 80%;
     }
 }
+
+#spinner{
+    display: flex;
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+}
+
+#spinner .spin{
+    width: 20%;
+    height: 20%;
+    
+}
+.spin__{
+    animation: spin 1.7s linear infinite;
+}
+
+@keyframes spin {
+
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }
