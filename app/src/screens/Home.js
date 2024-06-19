@@ -1,12 +1,13 @@
 import React from 'react'
-import {Text, View, SafeAreaView, StyleSheet } from 'react-native'
-import Header from './Header'
-import RecentMessages from './RecentMessages'
+import {Text, View, SafeAreaView, StyleSheet, StatusBar } from 'react-native'
+import Header from '../components/Header'
+import RecentMessages from '../components/RecentMessages'
+
 const Home = () => {
   return (
     <SafeAreaView style = {styles.container}>
         <View style = {styles.header}>
-            <Header />
+            <Header page = {'Home'} />
         </View>
 
         <View style = {styles.recentMessages}>
@@ -19,7 +20,8 @@ const Home = () => {
 const styles = StyleSheet.create({
     container:{
         flex: 1,
-        backgroundColor:  "#292f3f"
+        backgroundColor:  "#292f3f",
+        marginTop: StatusBar.height || 0
     },
     header: {
         height: 120
