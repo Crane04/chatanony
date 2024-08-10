@@ -54,7 +54,7 @@ const data = [
     {
         "group_name": "Neighbors",
         "last_message": "Community meeting on Saturday.",
-        "date": "2024-06-06"
+        "date": "2024-12-12"
     },
     {
         "group_name": "Movie Buffs",

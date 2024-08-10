@@ -44,6 +44,7 @@ class SendMessage(ListCreateAPIView):
         
         request.data["group"] = group_id
         
+        
         if serializer.is_valid():
             serializer.save()
             return Response(

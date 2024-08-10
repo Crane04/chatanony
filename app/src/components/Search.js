@@ -1,18 +1,21 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome"
 import AntDesign from "@expo/vector-icons/AntDesign"
 import {View, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { useNavigation } from '@react-navigation/native';
 
 const Search = () => {
+    
+    const navigation = useNavigation()
     return (
         
         <View style = {styles.searchAdd}>
             <View style = {styles.searchBox}>
-                <TextInput style = {styles.search} placeholder='Search...' placeholderTextColor={"#ffffff"} />
+                <TextInput style = {styles.search} placeholder='Search...' placeholderTextColor={"#ffffff"}  />
                 <TouchableOpacity style = {styles.searchIcon}>
                     <FontAwesome name = "search" size = {24} color = "white" />
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity style = {styles.add}>
+            <TouchableOpacity style = {styles.add} onPress={() => {navigation.navigate("CreateChat")}}>
                 <AntDesign name = "plus" size = {24} color = "white" />
             </TouchableOpacity>
         </View>
@@ -22,7 +25,10 @@ const Search = () => {
 const styles = StyleSheet.create({
     searchAdd: {
         flexDirection: "row",
-        alignItems: "center"
+        alignItems: "center",
+        marginLeft:30,
+        marginRight: 20,
+        marginBottom: 10
     },
     searchBox: {
         flex: 1,

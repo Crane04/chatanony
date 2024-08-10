@@ -6,9 +6,9 @@ import RecentMessages from '../components/RecentMessages'
 const Home = () => {
   return (
     <SafeAreaView style = {styles.container}>
-        <View style = {styles.header}>
-            <Header page = {'Home'} />
-        </View>
+        {/* <View style = {styles.header}>
+            <Header page = {'Home'} name = {"ChatAnony"} dp = {"../../assets/chatanony.png"} />
+        </View> */}
 
         <View style = {styles.recentMessages}>
             <RecentMessages />

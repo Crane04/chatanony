@@ -1,13 +1,11 @@
 import React from 'react'
-import {Text, View, StyleSheet, SafeAreaView, TouchableOpacity} from 'react-native'
+import {Text, View, StyleSheet, SafeAreaView} from 'react-native'
 import ExpoFastImage from 'expo-fast-image';
-import Search from "./Search"
-import Feather from "@expo/vector-icons/Feather"
 import { useNavigation } from '@react-navigation/native';
 
-const Header = ({page, title}) => {
+const Header = ({route}) => {
     const navigation = useNavigation()
-
+    const { name } = route.params.group;
   return (
     <SafeAreaView style = {styles.container}>
         <View style =  {styles.branding}>
@@ -20,20 +18,12 @@ const Header = ({page, title}) => {
                 />
 
                 <Text style = {styles.brand}>
-                    ChatAnony
+                    { name }
                 </Text>
                 
             </View>
-            <View>
-                <TouchableOpacity style = {styles.add} onPress={() => {navigation.navigate("Settings")}}>
-                    <Feather name='settings' size = {24}  color = {"#fff"}/>
-                </TouchableOpacity>
-            </View>
+
         </View>
-        {
-            title == "Home" &&   <Search />
-        }
-      
     </SafeAreaView>
   )
 }

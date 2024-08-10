@@ -57,10 +57,9 @@ useEffect(() => {
   // Socket
   
 
-  const socket = new WebSocket('wss://chatanony-wss.onrender.com/chat/'+ chat_name);
+  const socket = new WebSocket('wss://criminal-clo-crane-40342434.koyeb.app/chat/'+ chat_name);
   useEffect(() => {
     socket.onopen = () => {
-      console.log("connected");
       setTimeout(() => {
         setLoadingMessages(false);
       }, 400)
