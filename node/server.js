@@ -32,4 +32,6 @@ app.ws('/chat/:id', function(ws, req) {
     });
 });
 
-app.listen(3000);
+app.listen(3000, () => {
+  console.log("Server is running on port 3000")
+});

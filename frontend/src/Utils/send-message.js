@@ -19,6 +19,7 @@ const PostMessage = async (e, socket, formRef, chat_name, setPage, replyingTo, s
         message: message,
         replied: replyingTo,
         image: imgData,
+        time: new Date().toISOString(),
       })
     );
 

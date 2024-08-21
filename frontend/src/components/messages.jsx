@@ -8,7 +8,8 @@ const Messages = ({messages, page,  Reply}) => {
     messages.slice(-15 * page).map((msg, index)=> {
      const randomFaceEmoji = faceEmojis[Math.floor(Math.random() * faceEmojis.length)];
     
-     const {message, replied, image} = msg
+     const {message, replied, image, time} = msg
+     console.log(time)
    return  <div className="unit-message" key={index}>
                   <div className="emoji">{randomFaceEmoji}</div>
 

@@ -1,14 +1,8 @@
-import axios from "axios"
-import {BACKEND_URL} from "./constants"
+import getData from "../api/getData"; // Import the getData function
 
-const getMessages = async(group_name) => {
-    try{
-        const response = await axios.get(`${BACKEND_URL}/api/messages/${group_name}`)
-        if(!response) return {"error": "error occured"}
-        return response.data
-    }catch(error){
-        return error
-    }
-}
+const getMessages = async (group_name) => {
+  const endpoint = `/api/messages/${group_name}`;
+  return getData(endpoint);
+};
 
-export default getMessages
+export default getMessages;

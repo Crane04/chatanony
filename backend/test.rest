@@ -5,7 +5,13 @@ Content-Type: application/json
 
 
 ###
-POST  http://127.0.0.1:8000/api/messages/first86306b
-Content-Type: application/json
+POST  http://127.0.0.1:8001/api/messages/first86306b
+Content-Type: multipart/form-data
+
+{"message": "ello", "time": "2pm"}
+
+###
+POST  https://chatanony.pythonanywhere.com/api/messages/MAYOWAFORNIMECHE63e7f7
+Content-Type: multipart/form-data
 
 {"message": "ello", "time": "2pm"}

@@ -1,22 +1,38 @@
-import axios from "axios";
-import { BACKEND_URL } from "./constants";
+import axios from 'axios';
+import { BACKEND_URL } from '../utils/constants';
 
-const createChat = async (groupName) => {
+const createChat = async (groupName, selectedImage) => {
   const now = new Date();
-  try {
-    const response = await axios.post(`${BACKEND_URL}/api/create-group`, {
-      name: groupName,
-      created_at: now.toString()
-    }, {
-      headers: {
-        "Content-Type": "application/json"
-      }
+  const formData = new FormData();
+
+  formData.append('name', groupName);
+  formData.append('created_at', now.toString());
+
+  if (selectedImage) {
+    formData.append('image', {
+      uri: selectedImage,
+      name: 'chat_image.jpg',
+      type: 'image/jpeg',
     });
-    return response.data; // Assuming you want the data from the response
-  } catch (error) {
-    console.error("Error creating chat group:", error);
-    throw error; // Rethrow the error to be handled by the caller
   }
-}
+
+  // try {
+    const response = await axios.post(`https://chatanony.pythonanywhere.com/api/create-group`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    if (response.status === 201) {
+      return response.data; // Return the created chat data
+    } else {
+      console.error('Failed to create chat', response.statusText);
+      return null;
+    }
+  // } catch (error) {
+  //   console.error('Error creating chat:', error);
+  //   throw error;
+  // }
+};
 
 export default createChat;

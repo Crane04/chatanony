@@ -4,14 +4,19 @@ import uuid, re
 # Create your models here.
 
 
+# Function to define the upload path for group images
+def upload_group_image_path(instance, filename):
+    return f"group_images/{filename}"
+
 class GroupChat(models.Model):
-    group_id = models.CharField(max_length = 100, primary_key=True, unique=True, editable = False)
+    group_id = models.CharField(max_length=100, primary_key=True, unique=True, editable=False)
     name = models.CharField(max_length=100)
     created_at = models.CharField(max_length=1000)
+    image = models.ImageField(upload_to=upload_group_image_path, blank=True, null=True)  # Add the image field
 
     def __str__(self):
         return self.name
-    
+
     def save(self, *args, **kwargs):
         if not self.group_id:
             group_id = re.findall(r"[a-zA-Z0-9]", self.name)
