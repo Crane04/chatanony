@@ -1,6 +1,0 @@
-.env*
-data.json*
-database.json*
-.gitignore*
-/media
-db.sqlite3
