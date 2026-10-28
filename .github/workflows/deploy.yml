@@ -1,0 +1,48 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency: deploy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          path: frontend
+
+      # package.json installs the SDK from ../library until it's published to npm
+      - uses: actions/checkout@v5
+        with:
+          repository: Crane04/chatanony-sdk
+          ssh-key: ${{ secrets.SDK_DEPLOY_KEY }}
+          path: library
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 20
+
+      - name: Build
+        env:
+          VITE_CHATANONY_KEY: ${{ vars.VITE_CHATANONY_KEY }}
+        run: |
+          (cd library && npm ci --omit=dev)
+          cd frontend && npm ci && npm run build
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          echo "${{ secrets.VPS_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+
+      - name: Upload and start
+        working-directory: frontend
+        run: |
+          rsync -az --delete dist nginx.conf docker-compose.yml \
+            root@${{ secrets.VPS_HOST }}:/opt/chatanony/frontend/
+          ssh root@${{ secrets.VPS_HOST }} 'cd /opt/chatanony/frontend && docker compose up -d'

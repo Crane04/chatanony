@@ -1,0 +1,13 @@
+# Serves the prebuilt dist/ (built in CI, where the SDK and the public key are available).
+name: chatanony-chat
+
+services:
+  web:
+    image: nginx:1.27-alpine
+    container_name: chatanony-chat
+    restart: unless-stopped
+    volumes:
+      - ./dist:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "127.0.0.1:4109:80"
