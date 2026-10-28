@@ -12,15 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-        with:
-          path: frontend
-
-      # package.json installs the SDK from ../library until it's published to npm
-      - uses: actions/checkout@v5
-        with:
-          repository: Crane04/chatanony-sdk
-          ssh-key: ${{ secrets.SDK_DEPLOY_KEY }}
-          path: library
 
       - uses: actions/setup-node@v5
         with:
@@ -29,9 +20,7 @@ jobs:
       - name: Build
         env:
           VITE_CHATANONY_KEY: ${{ vars.VITE_CHATANONY_KEY }}
-        run: |
-          (cd library && npm ci --omit=dev)
-          cd frontend && npm ci && npm run build
+        run: npm ci && npm run build
 
       - name: Set up SSH
         run: |
@@ -41,7 +30,6 @@ jobs:
           echo "${{ secrets.VPS_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
 
       - name: Upload and start
-        working-directory: frontend
         run: |
           rsync -az --delete dist nginx.conf docker-compose.yml \
             root@${{ secrets.VPS_HOST }}:/opt/chatanony/frontend/
